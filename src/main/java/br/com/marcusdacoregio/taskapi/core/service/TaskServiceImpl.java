@@ -59,6 +59,12 @@ public class TaskServiceImpl implements TaskService {
         Task task = findEntity(taskId);
         task.setStatus(newTaskStatus);
 
+        if (newTaskStatus.equals(TaskStatus.CONCLUIDA)) {
+            task.setConclusionDate(LocalDateTime.now());
+        } else {
+            task.setConclusionDate(null);
+        }
+
         task = taskRepository.save(task);
 
         return taskMapper.toDto(task);
